@@ -7,6 +7,7 @@ from pl_bolts.models.autoencoders.components import (
     resnet18_encoder,
 )
 from pl_bolts.datamodules import CIFAR10DataModule, ImagenetDataModule
+from pytorch_lightning import loggers as pl_loggers
 from image_plotting_callback import ImageSampler
 from argparse import ArgumentParser
 
@@ -109,10 +110,12 @@ def train():
     if args.dataset == 'imagenet':
         dataset = ImagenetDataModule('.')
 
+    logger = pl_loggers.TensorBoardLogger(save_dir='results/log_1/', default_hp_metric=False)
+
     sampler = ImageSampler()
 
     vae = VAE()
-    trainer = pl.Trainer(gpus=args.gpus, max_epochs=20, callbacks=[sampler])
+    trainer = pl.Trainer(gpus=args.gpus, max_epochs=20, logger=logger, callbacks=[sampler])
     trainer.fit(vae, dataset)
 
 
