@@ -6,7 +6,8 @@ from pl_bolts.models.autoencoders.components import (
     resnet18_decoder,
     resnet18_encoder,
 )
-from pl_bolts.datamodules import CIFAR10DataModule, ImagenetDataModule
+from pl_bolts.datamodules import CIFAR10DataModule
+from pl_bolts.datamodules.imagenet_datamodule import ImagenetDataModule
 from pytorch_lightning import loggers as pl_loggers
 from image_plotting_callback import ImageSampler
 from argparse import ArgumentParser
